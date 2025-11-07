@@ -120,3 +120,37 @@ float Handler::read_float(const std::string &section, const std::string &key, fl
         return defval;
     }
 }
+
+bool Handler::write_string(const std::string &section, const std::string &key, const std::string &value)
+{
+    if (!valid)
+        return false;
+    data[section][key] = value;
+    modified = true;
+    return true;
+}
+
+bool Handler::write_int(const std::string &section, const std::string &key, int value)
+{
+    return write_string(section, key, std::to_string(value));
+}
+
+bool Handler::write_float(const std::string &section, const std::string &key, float value)
+{
+    return write_string(section, key, std::to_string(value));
+}
+
+bool Handler::delete_key(const std::string &section, const std::string &key)
+{
+    if (!valid)
+        return false;
+    auto section_it = data.find(section);
+    if (section_it == data.end())
+        return false;
+    auto key_it = section_it->second.find(key);
+    if (key_it == section_it->second.end())
+        return false;
+    section_it->second.erase(key_it);
+    modified = true;
+    return true;
+}
