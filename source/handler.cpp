@@ -191,3 +191,11 @@ void Handler::trim(std::string &s)
                 .base(),
             s.end());
 }
+
+std::string Handler::to_lower(const std::string &s)
+{
+    std::string result = s;
+    // we need to transform the string to lowercase for the comparison
+    std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+    return result;
+}
