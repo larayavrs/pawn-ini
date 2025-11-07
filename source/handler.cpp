@@ -90,3 +90,33 @@ std::string Handler::read_string(const std::string &section, const std::string &
         return defval;
     return key_it->second;
 }
+
+int Handler::read_int(const std::string &section, const std::string &key, int defval)
+{
+    std::string value = read_string(section, key, "");
+    if (value.empty())
+        return defval;
+    try
+    {
+        return std::stoi(value);
+    }
+    catch (...)
+    {
+        return defval;
+    }
+}
+
+float Handler::read_float(const std::string &section, const std::string &key, float defval)
+{
+    std::string value = read_string(section, key, "");
+    if (value.empty())
+        return defval;
+    try
+    {
+        return std::stof(value);
+    }
+    catch (...)
+    {
+        return defval;
+    }
+}
