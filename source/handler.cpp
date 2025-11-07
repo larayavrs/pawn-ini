@@ -2,7 +2,7 @@
 #include <sstream>
 #include <cctype>
 
-#include "handler.h"
+#include "handler.hpp"
 
 Handler::Handler(const std::string &fpath) : file_path(fpath), valid(false), modified(false)
 {
@@ -74,4 +74,19 @@ bool Handler::save()
     file.close();
     modified = false;
     return true;
+}
+
+std::string Handler::read_string(const std::string &section, const std::string &key, const std::string &defval)
+{
+    if (!valid)
+        return defval;
+    // we need to find the section first
+    auto section_it = data.find(section);
+    if (section_it == data.end())
+        return defval;
+    // and now the key
+    auto key_it = section_it->second.find(key);
+    if (key_it == section_it->second.end())
+        return defval;
+    return key_it->second;
 }
