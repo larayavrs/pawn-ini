@@ -154,3 +154,40 @@ bool Handler::delete_key(const std::string &section, const std::string &key)
     modified = true;
     return true;
 }
+
+bool Handler::delete_section(const std::string &section)
+{
+    if (!valid)
+        return false;
+    auto section_it = data.find(section);
+    if (section_it == data.end())
+        return false;
+    data.erase(section_it);
+    modified = true;
+    return true;
+}
+
+bool Handler::section_exists(const std::string &section) const
+{
+    return data.find(section) != data.end();
+}
+
+bool Handler::key_exists(const std::string &section, const std::string &key) const
+{
+    auto section_it = data.find(section);
+    if (section_it == data.end())
+        return false;
+    return section_it->second.find(key) != section_it->second.end();
+}
+
+void Handler::trim(std::string &s)
+{
+    // first left trim
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch)
+                                    { return !std::isspace(ch); }));
+    // then right trim
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch)
+                         { return !std::isspace(ch); })
+                .base(),
+            s.end());
+}
