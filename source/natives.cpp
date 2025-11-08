@@ -69,3 +69,35 @@ cell AMX_NATIVE_CALL Natives::Native_INI_Close(AMX *amx, cell *params)
     handlers.erase(it);
     return 1;
 }
+
+cell AMX_NATIVE_CALL Natives::Native_INI_ReadString(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_ReadString", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    std::string key = GetStringFromAMX(amx, params[3]);
+    int maxlen = params[5];
+    std::string value = it->second->read_string(section, key, "");
+    SetStringToAMX(amx, params[4], value, maxlen);
+    return 1;
+}
+
+cell AMX_NATIVE_CALL Natives::Native_INI_ReadInt(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_ReadInt", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    std::string key = GetStringFromAMX(amx, params[3]);
+    int defval = params[4];
+    return it->second->read_int(section, key, defval);
+}
