@@ -101,3 +101,34 @@ cell AMX_NATIVE_CALL Natives::Native_INI_ReadInt(AMX *amx, cell *params)
     int defval = params[4];
     return it->second->read_int(section, key, defval);
 }
+
+cell AMX_NATIVE_CALL Natives::Native_INI_ReadFloat(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_ReadFloat", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    std::string key = GetStringFromAMX(amx, params[3]);
+    float defval = amx_ctof(params[4]); // cell to float wow!
+    float value = it->second->read_float(section, key, defval);
+    return amx_ftoc(value);
+}
+
+cell AMX_NATIVE_CALL Natives::Native_INI_WriteString(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_WriteString", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    std::string key = GetStringFromAMX(amx, params[3]);
+    std::string value = GetStringFromAMX(amx, params[4]);
+    return it->second->write_string(section, key, value) ? 1 : 0;
+}
