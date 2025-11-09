@@ -8,11 +8,47 @@
 
 // self includes for the handler class
 #include "handler.hpp"
+#include "constants.hpp"
 
-logprintf_t logprintf;
+// self includes for the native functions (our plugin development)
+#include "natives.hpp"
 
-// so we storage the the INI file handles
-std::map<int, Handler *> handlers; /** A map of file handles to Handler objects. */
-int next_handle = 1;               /** The next available handle, incremented for each new handler. */
+const AMX_NATIVE_INFO NATIVES[] = {
+    {"INI_Open", Natives::Native_INI_Open},
+    {"INI_Close", Natives::Native_INI_Close},
+    {"INI_ReadString", Natives::Native_INI_ReadString},
+    {"INI_ReadInt", Natives::Native_INI_ReadInt},
+    {"INI_ReadFloat", Natives::Native_INI_ReadFloat},
+    {"INI_WriteString", Natives::Native_INI_WriteString},
+    {"INI_WriteInt", Natives::Native_INI_WriteInt},
+    {"INI_WriteFloat", Natives::Native_INI_WriteFloat},
+    {"INI_SectionExists", Natives::Native_INI_SectionExists},
+    {"INI_KeyExists", Natives::Native_INI_KeyExists},
+    {0, 0}};
 
-// TODO: do the rest of natives and AMX functions
+PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()
+{
+    return SUPPORTS_VERSION | SUPPORTS_AMX_NATIVES;
+}
+
+PLUGIN_EXPORT bool PLUGIN_CALL Load(void **ppData)
+{
+    logprintf = (logprintf_t)ppData[PLUGIN_DATA_LOGPRINTF];
+    logprintf("[pawn-ini | Info] Plugin has been loaded successfully: %s", VERSION_SHORT);
+    return true;
+}
+
+PLUGIN_EXPORT void PLUGIN_CALL Unload()
+{
+    logprintf("[pawn-ini | Info] Plugin has been unloaded");
+}
+
+PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx)
+{
+    return amx_Register(amx, NATIVES, -1);
+}
+
+PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx)
+{
+    return AMX_ERR_NONE;
+}
