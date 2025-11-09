@@ -98,17 +98,17 @@ INI_Open("data/users.ini");
 
 ## 📋 Available Functions
 
-### `INI:INI_Open(const path[])`
+##### `INI:INI_Open(const path[])`
 Opens or creates an INI file.
 - **Parameters:** `path` - File path (absolute or relative)
 - **Returns:** File handle or `INVALID_INI_HANDLE` on failure
 
-### `INI_Close(INI:handle)`
+##### `INI_Close(INI:handle)`
 Closes the file and saves changes.
 - **Parameters:** `handle` - File handle
 - **Returns:** 1 on success, 0 on failure
 
-### `INI_ReadString(INI:handle, const section[], const key[], dest[], size = sizeof(dest))`
+##### `INI_ReadString(INI:handle, const section[], const key[], dest[], size = sizeof(dest))`
 Reads a string from the INI file.
 - **Parameters:**
   - `handle` - File handle
@@ -118,7 +118,7 @@ Reads a string from the INI file.
   - `size` - Buffer size
 - **Returns:** 1 on success, 0 on failure
 
-### `INI_ReadInt(INI:handle, const section[], const key[], defaultValue = 0)`
+##### `INI_ReadInt(INI:handle, const section[], const key[], defaultValue = 0)`
 Reads an integer from the INI file.
 - **Parameters:**
   - `handle` - File handle
@@ -127,31 +127,31 @@ Reads an integer from the INI file.
   - `defaultValue` - Default value if key doesn't exist
 - **Returns:** Read value or defaultValue
 
-### `Float:INI_ReadFloat(INI:handle, const section[], const key[], Float:defaultValue = 0.0)`
+##### `Float:INI_ReadFloat(INI:handle, const section[], const key[], Float:defaultValue = 0.0)`
 Reads a float from the INI file.
 
-### `INI_WriteString(INI:handle, const section[], const key[], const value[])`
+##### `INI_WriteString(INI:handle, const section[], const key[], const value[])`
 Writes a string to the INI file.
 
-### `INI_WriteInt(INI:handle, const section[], const key[], value)`
+##### `INI_WriteInt(INI:handle, const section[], const key[], value)`
 Writes an integer to the INI file.
 
-### `INI_WriteFloat(INI:handle, const section[], const key[], Float:value)`
+##### `INI_WriteFloat(INI:handle, const section[], const key[], Float:value)`
 Writes a float to the INI file.
 
-### `INI_DeleteKey(INI:handle, const section[], const key[])`
+##### `INI_DeleteKey(INI:handle, const section[], const key[])`
 Deletes a key from the INI file.
 
-### `INI_DeleteSection(INI:handle, const section[])`
+##### `INI_DeleteSection(INI:handle, const section[])`
 Deletes an entire section from the INI file.
 
-### `INI_SectionExists(INI:handle, const section[])`
+##### `INI_SectionExists(INI:handle, const section[])`
 Checks if a section exists.
 
-### `INI_KeyExists(INI:handle, const section[], const key[])`
+##### `INI_KeyExists(INI:handle, const section[], const key[])`
 Checks if a key exists within a section.
 
-## 🔧 Building from Source
+## Building from Source
 
 ### Quick Start (Recommended)
 
@@ -183,17 +183,6 @@ chmod +x compile.sh
 - GCC/G++ with 32-bit support
 - CMake 3.10 or newer
 
-```bash
-# Ubuntu/Debian
-sudo apt-get install build-essential gcc-multilib g++-multilib cmake
-
-# CentOS/RHEL
-sudo yum install gcc gcc-c++ glibc-devel.i686 libstdc++-devel.i686 cmake
-
-# Fedora
-sudo dnf install gcc gcc-c++ glibc-devel.i686 libstdc++-devel.i686 cmake
-```
-
 ### Manual Build
 
 **Windows:**
@@ -214,7 +203,6 @@ make
 Compiled files will be in the `output/` directory.
 
 ## Important Notes
-
 - The plugin allows full filesystem access - be careful with the paths you use
 - Always close files with `INI_Close()` to save changes
 - Changes are saved automatically when closing or when the handler is destroyed
@@ -222,5 +210,4 @@ Compiled files will be in the `output/` directory.
 - SA:MP servers are 32-bit applications, so the plugin must be compiled as 32-bit
 
 ## Contributing
-
 Contributions are welcome! Please open an issue or pull request.
