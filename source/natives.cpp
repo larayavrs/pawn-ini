@@ -132,3 +132,87 @@ cell AMX_NATIVE_CALL Natives::Native_INI_WriteString(AMX *amx, cell *params)
     std::string value = GetStringFromAMX(amx, params[4]);
     return it->second->write_string(section, key, value) ? 1 : 0;
 }
+
+cell AMX_NATIVE_CALL Natives::Native_INI_WriteInt(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_WriteInt", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    std::string key = GetStringFromAMX(amx, params[3]);
+    int value = params[4];
+    return it->second->write_int(section, key, value) ? 1 : 0;
+}
+
+cell AMX_NATIVE_CALL Natives::Native_INI_WriteFloat(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_WriteFloat", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    std::string key = GetStringFromAMX(amx, params[3]);
+    float value = amx_ctof(params[4]);
+    return it->second->write_float(section, key, value) ? 1 : 0;
+}
+
+cell AMX_NATIVE_CALL Natives::Native_INI_DeleteKey(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_DeleteKey", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    std::string key = GetStringFromAMX(amx, params[3]);
+    return it->second->delete_key(section, key) ? 1 : 0;
+}
+
+cell AMX_NATIVE_CALL Natives::Native_INI_DeleteSection(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_DeleteSection", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    return it->second->delete_section(section) ? 1 : 0;
+}
+
+cell AMX_NATIVE_CALL Natives::Native_INI_SectionExists(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_SectionExists", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    return it->second->section_exists(section) ? 1 : 0;
+}
+
+cell AMX_NATIVE_CALL Natives::Native_INI_KeyExists(AMX *amx, cell *params)
+{
+    int handle = params[1];
+    auto it = handlers.find(handle);
+    if (it == handlers.end())
+    {
+        logprintf("[pawn-ini | Error] Invalid handle %d provided for INI_KeyExists", handle);
+        return 0;
+    }
+    std::string section = GetStringFromAMX(amx, params[2]);
+    std::string key = GetStringFromAMX(amx, params[3]);
+    return it->second->key_exists(section, key) ? 1 : 0;
+}
