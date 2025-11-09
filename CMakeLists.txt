@@ -24,7 +24,7 @@ set(SOURCES
     source/main.cpp
     source/handler.cpp
     source/natives.cpp
-    common/SDK/amxutil.cpp
+    sdk/amxplugin.cpp
 )
 
 # Headers
@@ -32,8 +32,9 @@ set(HEADERS
     source/handler.hpp
     source/natives.hpp
     source/constants.hpp
-    common/SDK/amx.h
-    common/SDK/plugincommon.h
+    sdk/amx/amx.h
+    sdk/plugincommon.h
+    sdk/plugin.h
 )
 
 # Create shared library (plugin)
@@ -41,7 +42,8 @@ add_library(pawn-ini SHARED ${SOURCES} ${HEADERS})
 
 # Include directories
 target_include_directories(pawn-ini PRIVATE
-    ${CMAKE_SOURCE_DIR}/common/SDK
+    ${CMAKE_SOURCE_DIR}/sdk
+    ${CMAKE_SOURCE_DIR}/sdk/amx
     ${CMAKE_SOURCE_DIR}/source
 )
 
@@ -49,7 +51,7 @@ target_include_directories(pawn-ini PRIVATE
 if(MSVC)
     # Visual Studio
     target_compile_options(pawn-ini PRIVATE /W4 /O2)
-    target_compile_definitions(pawn-ini PRIVATE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(pawn-ini PRIVATE _CRT_SECURE_NO_WARNINGS HAVE_STDINT_H)
 else()
     # GCC/Clang
     target_compile_options(pawn-ini PRIVATE -Wall -Wextra -O3 -fPIC)
