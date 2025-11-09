@@ -1,7 +1,7 @@
 #ifndef NATIVES_HPP
 #define NATIVES_HPP
 
-#include "../common/SDK/amx.h"
+#include "amx/amx.h"
 
 /**
  * @file natives.hpp
