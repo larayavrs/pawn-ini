@@ -1,6 +1,6 @@
 # pawn-ini
 
-A SA:MP plugin that allows reading and writing `.ini` files from any location on the filesystem, **without scriptfiles restrictions**.
+A SA:MP plugin that allows manipulating `.ini` files from any location on the filesystem, **without scriptfiles restrictions**.
 
 ## Features
 
