@@ -3,8 +3,8 @@
 #include <cstring>
 
 // SA:MP SDK includes
-#include "../common/SDK/amx.h"
-#include "../common/SDK/plugincommon.h"
+#include "amx/amx.h"
+#include "plugincommon.h"
 
 // self includes for the handler class
 #include "handler.hpp"
