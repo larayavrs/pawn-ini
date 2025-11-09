@@ -13,6 +13,8 @@
 // self includes for the native functions (our plugin development)
 #include "natives.hpp"
 
+logprintf_t logprintf;
+
 const AMX_NATIVE_INFO NATIVES[] = {
     {"INI_Open", Natives::Native_INI_Open},
     {"INI_Close", Natives::Native_INI_Close},
@@ -22,6 +24,8 @@ const AMX_NATIVE_INFO NATIVES[] = {
     {"INI_WriteString", Natives::Native_INI_WriteString},
     {"INI_WriteInt", Natives::Native_INI_WriteInt},
     {"INI_WriteFloat", Natives::Native_INI_WriteFloat},
+    {"INI_DeleteKey", Natives::Native_INI_DeleteKey},
+    {"INI_DeleteSection", Natives::Native_INI_DeleteSection},
     {"INI_SectionExists", Natives::Native_INI_SectionExists},
     {"INI_KeyExists", Natives::Native_INI_KeyExists},
     {0, 0}};
