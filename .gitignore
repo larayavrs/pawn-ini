@@ -4,6 +4,7 @@ output/*.dll
 output/*.so
 output/*.lib
 output/*.exp
+dist
 
 # CMake
 CMakeCache.txt
