@@ -1,9 +1,5 @@
 # Build directories
 build/
-output/*.dll
-output/*.so
-output/*.lib
-output/*.exp
 dist
 
 # CMake
