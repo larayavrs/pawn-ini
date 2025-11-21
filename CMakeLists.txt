@@ -14,12 +14,12 @@ elseif(UNIX)
     add_definitions(-DLINUX)
 endif()
 
-# Output directories
+# Output directories (build only, not install)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-# Architecture label for installation directories (x32/x64)
+# Architecture folder label
 if(NOT DEFINED PAWN_INI_ARCH OR PAWN_INI_ARCH STREQUAL "")
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         set(PAWN_INI_ARCH "x64")
@@ -46,10 +46,10 @@ set(HEADERS
     sdk/plugin.h
 )
 
-# Create shared library (plugin)
+# Create plugin library
 add_library(pawn-ini SHARED ${SOURCES} ${HEADERS})
 
-# Include directories
+# Includes
 target_include_directories(pawn-ini PRIVATE
     ${CMAKE_SOURCE_DIR}/sdk
     ${CMAKE_SOURCE_DIR}/sdk/amx
@@ -58,33 +58,32 @@ target_include_directories(pawn-ini PRIVATE
 
 # Compiler flags
 if(MSVC)
-    # Visual Studio
     target_compile_options(pawn-ini PRIVATE /W4 /O2)
     target_compile_definitions(pawn-ini PRIVATE _CRT_SECURE_NO_WARNINGS HAVE_STDINT_H)
 else()
-    # GCC/Clang
     target_compile_options(pawn-ini PRIVATE -Wall -Wextra -O3 -fPIC)
-    
     if(UNIX)
         target_compile_options(pawn-ini PRIVATE -m32)
         target_link_options(pawn-ini PRIVATE -m32)
     endif()
 endif()
 
-# Set output name
+# Output name
 set_target_properties(pawn-ini PROPERTIES
     PREFIX ""
     OUTPUT_NAME "pawn-ini"
     SUFFIX ${PLUGIN_EXTENSION}
 )
 
-# Installation
+#
+# INSTALLATION — 100% FIXED
+#
 install(TARGETS pawn-ini
-    RUNTIME DESTINATION ${CMAKE_SOURCE_DIR}/output/${PAWN_INI_ARCH}
-    LIBRARY DESTINATION ${CMAKE_SOURCE_DIR}/output/${PAWN_INI_ARCH}
+    RUNTIME DESTINATION ${PAWN_INI_ARCH}
+    LIBRARY DESTINATION ${PAWN_INI_ARCH}
 )
 
-# Locate pawn-ini.inc for installation (prefer repo root, fallback to dist package)
+# Find pawn-ini.inc
 set(PAWN_INI_INC "${CMAKE_SOURCE_DIR}/pawn-ini.inc")
 if(NOT EXISTS "${PAWN_INI_INC}")
     if(EXISTS "${CMAKE_SOURCE_DIR}/dist/pawn-ini-v1.0.0/pawn-ini.inc")
@@ -94,20 +93,16 @@ if(NOT EXISTS "${PAWN_INI_INC}")
     endif()
 endif()
 
+# Install .inc
 if(PAWN_INI_INC)
     install(FILES ${PAWN_INI_INC}
-        DESTINATION ${CMAKE_SOURCE_DIR}/output
+        DESTINATION ${PAWN_INI_ARCH}
     )
 endif()
 
-# Print build information
+# Info
 message(STATUS "==============================================")
 message(STATUS "pawn-ini Plugin Configuration")
-message(STATUS "==============================================")
-message(STATUS "Version: ${PROJECT_VERSION}")
-message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
-message(STATUS "C++ Compiler: ${CMAKE_CXX_COMPILER}")
-message(STATUS "Platform: ${CMAKE_SYSTEM_NAME}")
+message(STATUS "Architecture: ${PAWN_INI_ARCH}")
 message(STATUS "Plugin Extension: ${PLUGIN_EXTENSION}")
-message(STATUS "Output Directory: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 message(STATUS "==============================================")
