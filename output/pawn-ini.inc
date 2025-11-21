@@ -16,10 +16,7 @@
 #define _pawn_ini_included
 
 // Invalid handle
-#define INVALID_INI_HANDLE (IniFile:0)
-
-// Custom tag for INI file handles
-#define IniFile: INI_
+#define INVALID_INI_HANDLE (PawnINIFile:0)
 
 /**
  * Opens or creates an INI file
@@ -28,12 +25,12 @@
  * @return       File handle or INVALID_INI_HANDLE if fails
  * 
  * Examples:
- *   INI_Open("C:/config/server.ini")           // Windows - Absolute path
- *   INI_Open("/etc/samp/config.ini")           // Linux - Absolute path
- *   INI_Open("../configs/settings.ini")        // Relative path (parent folder)
- *   INI_Open("data/users.ini")                 // Relative path (subfolder)
+ *   PawnINI_Open("C:/config/server.ini")           // Windows - Absolute path
+ *   PawnINI_Open("/etc/samp/config.ini")           // Linux - Absolute path
+ *   PawnINI_Open("../configs/settings.ini")        // Relative path (parent folder)
+ *   PawnINI_Open("data/users.ini")                 // Relative path (subfolder)
  */
-native IniFile:INI_Open(const path[]);
+native PawnINIFile:PawnINI_Open(const path[]);
 
 /**
  * Closes the handle and saves changes
@@ -41,7 +38,7 @@ native IniFile:INI_Open(const path[]);
  * @param handle    File handle
  * @return          1 on success, 0 on failure
  */
-native INI_Close(IniFile:handle);
+native PawnINI_Close(PawnINIFile:handle);
 
 /**
  * Reads a string from the INI file
@@ -53,7 +50,7 @@ native INI_Close(IniFile:handle);
  * @param size         Maximum buffer size
  * @return             1 on success, 0 on failure
  */
-native INI_ReadString(IniFile:handle, const section[], const key[], dest[], size = sizeof(dest));
+native PawnINI_ReadString(PawnINIFile:handle, const section[], const key[], dest[], size = sizeof(dest));
 
 /**
  * Reads an integer from the INI file
@@ -64,7 +61,7 @@ native INI_ReadString(IniFile:handle, const section[], const key[], dest[], size
  * @param defaultValue Default value if key doesn't exist
  * @return             Read value or defaultValue if not found
  */
-native INI_ReadInt(IniFile:handle, const section[], const key[], defaultValue = 0);
+native PawnINI_ReadInt(PawnINIFile:handle, const section[], const key[], defaultValue = 0);
 
 /**
  * Reads a float from the INI file
@@ -75,7 +72,7 @@ native INI_ReadInt(IniFile:handle, const section[], const key[], defaultValue = 
  * @param defaultValue Default value if key doesn't exist
  * @return             Read value or defaultValue if not found
  */
-native Float:INI_ReadFloat(IniFile:handle, const section[], const key[], Float:defaultValue = 0.0);
+native Float:PawnINI_ReadFloat(PawnINIFile:handle, const section[], const key[], Float:defaultValue = 0.0);
 
 /**
  * Writes a string to the INI file
@@ -86,7 +83,7 @@ native Float:INI_ReadFloat(IniFile:handle, const section[], const key[], Float:d
  * @param value     Value to write
  * @return          1 on success, 0 on failure
  */
-native INI_WriteString(IniFile:handle, const section[], const key[], const value[]);
+native PawnINI_WriteString(PawnINIFile:handle, const section[], const key[], const value[]);
 
 /**
  * Writes an integer to the INI file
@@ -97,7 +94,7 @@ native INI_WriteString(IniFile:handle, const section[], const key[], const value
  * @param value     Value to write
  * @return          1 on success, 0 on failure
  */
-native INI_WriteInt(IniFile:handle, const section[], const key[], value);
+native PawnINI_WriteInt(PawnINIFile:handle, const section[], const key[], value);
 
 /**
  * Writes a float to the INI file
@@ -108,7 +105,7 @@ native INI_WriteInt(IniFile:handle, const section[], const key[], value);
  * @param value     Value to write
  * @return          1 on success, 0 on failure
  */
-native INI_WriteFloat(IniFile:handle, const section[], const key[], Float:value);
+native PawnINI_WriteFloat(PawnINIFile:handle, const section[], const key[], Float:value);
 
 /**
  * Deletes a key from the INI file
@@ -118,7 +115,7 @@ native INI_WriteFloat(IniFile:handle, const section[], const key[], Float:value)
  * @param key       Key name
  * @return          1 on success, 0 on failure
  */
-native INI_DeleteKey(IniFile:handle, const section[], const key[]);
+native PawnINI_DeleteKey(PawnINIFile:handle, const section[], const key[]);
 
 /**
  * Deletes an entire section from the INI file
@@ -127,7 +124,7 @@ native INI_DeleteKey(IniFile:handle, const section[], const key[]);
  * @param section   Section name
  * @return          1 on success, 0 on failure
  */
-native INI_DeleteSection(IniFile:handle, const section[]);
+native PawnINI_DeleteSection(PawnINIFile:handle, const section[]);
 
 /**
  * Checks if a section exists
@@ -136,7 +133,7 @@ native INI_DeleteSection(IniFile:handle, const section[]);
  * @param section   Section name
  * @return          1 if exists, 0 if not
  */
-native INI_SectionExists(IniFile:handle, const section[]);
+native PawnINI_SectionExists(PawnINIFile:handle, const section[]);
 
 /**
  * Checks if a key exists within a section
@@ -146,4 +143,4 @@ native INI_SectionExists(IniFile:handle, const section[]);
  * @param key       Key name
  * @return          1 if exists, 0 if not
  */
-native INI_KeyExists(IniFile:handle, const section[], const key[]);
+native PawnINI_KeyExists(PawnINIFile:handle, const section[], const key[]);
