@@ -34,7 +34,7 @@ void SetStringToAMX(AMX *amx, cell param, const std::string &str, int maxlen)
     amx_SetString(addr, str.c_str(), 0, 0, maxlen);
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_Open(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_Open(AMX *amx, cell *params)
 {
     std::string path = GetStringFromAMX(amx, params[1]);
     if (path.empty())
@@ -55,7 +55,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_Open(AMX *amx, cell *params)
     return handle;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_Close(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_Close(AMX *amx, cell *params)
 {
     int handle = params[1];
     // TODO: check if handle is valid?
@@ -70,7 +70,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_Close(AMX *amx, cell *params)
     return 1;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_ReadString(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_ReadString(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -87,7 +87,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_ReadString(AMX *amx, cell *params)
     return 1;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_ReadInt(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_ReadInt(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -102,7 +102,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_ReadInt(AMX *amx, cell *params)
     return it->second->read_int(section, key, defval);
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_ReadFloat(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_ReadFloat(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -118,7 +118,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_ReadFloat(AMX *amx, cell *params)
     return amx_ftoc(value);
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_WriteString(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_WriteString(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -133,7 +133,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_WriteString(AMX *amx, cell *params)
     return it->second->write_string(section, key, value) ? 1 : 0;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_WriteInt(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_WriteInt(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -148,7 +148,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_WriteInt(AMX *amx, cell *params)
     return it->second->write_int(section, key, value) ? 1 : 0;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_WriteFloat(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_WriteFloat(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -163,7 +163,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_WriteFloat(AMX *amx, cell *params)
     return it->second->write_float(section, key, value) ? 1 : 0;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_DeleteKey(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_DeleteKey(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -177,7 +177,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_DeleteKey(AMX *amx, cell *params)
     return it->second->delete_key(section, key) ? 1 : 0;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_DeleteSection(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_DeleteSection(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -190,7 +190,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_DeleteSection(AMX *amx, cell *params)
     return it->second->delete_section(section) ? 1 : 0;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_SectionExists(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_SectionExists(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);
@@ -203,7 +203,7 @@ cell AMX_NATIVE_CALL Natives::Native_INI_SectionExists(AMX *amx, cell *params)
     return it->second->section_exists(section) ? 1 : 0;
 }
 
-cell AMX_NATIVE_CALL Natives::Native_INI_KeyExists(AMX *amx, cell *params)
+cell AMX_NATIVE_CALL Natives::Native_PawnINI_KeyExists(AMX *amx, cell *params)
 {
     int handle = params[1];
     auto it = handlers.find(handle);

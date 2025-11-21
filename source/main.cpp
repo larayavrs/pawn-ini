@@ -16,18 +16,18 @@
 logprintf_t logprintf;
 
 const AMX_NATIVE_INFO NATIVES[] = {
-    {"INI_Open", Natives::Native_INI_Open},
-    {"INI_Close", Natives::Native_INI_Close},
-    {"INI_ReadString", Natives::Native_INI_ReadString},
-    {"INI_ReadInt", Natives::Native_INI_ReadInt},
-    {"INI_ReadFloat", Natives::Native_INI_ReadFloat},
-    {"INI_WriteString", Natives::Native_INI_WriteString},
-    {"INI_WriteInt", Natives::Native_INI_WriteInt},
-    {"INI_WriteFloat", Natives::Native_INI_WriteFloat},
-    {"INI_DeleteKey", Natives::Native_INI_DeleteKey},
-    {"INI_DeleteSection", Natives::Native_INI_DeleteSection},
-    {"INI_SectionExists", Natives::Native_INI_SectionExists},
-    {"INI_KeyExists", Natives::Native_INI_KeyExists},
+    {"PawnINI_Open", Natives::Native_PawnINI_Open},
+    {"PawnINI_Close", Natives::Native_PawnINI_Close},
+    {"PawnINI_ReadString", Natives::Native_PawnINI_ReadString},
+    {"PawnINI_ReadInt", Natives::Native_PawnINI_ReadInt},
+    {"PawnINI_ReadFloat", Natives::Native_PawnINI_ReadFloat},
+    {"PawnINI_WriteString", Natives::Native_PawnINI_WriteString},
+    {"PawnINI_WriteInt", Natives::Native_PawnINI_WriteInt},
+    {"PawnINI_WriteFloat", Natives::Native_PawnINI_WriteFloat},
+    {"PawnINI_DeleteKey", Natives::Native_PawnINI_DeleteKey},
+    {"PawnINI_DeleteSection", Natives::Native_PawnINI_DeleteSection},
+    {"PawnINI_SectionExists", Natives::Native_PawnINI_SectionExists},
+    {"PawnINI_KeyExists", Natives::Native_PawnINI_KeyExists},
     {0, 0}};
 
 PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()

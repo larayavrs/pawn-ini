@@ -34,7 +34,7 @@ Example_WindowsAbsolutePath()
 {
     print("=== Example 1: Windows Absolute Path ===");
     
-    new INI:config = INI_Open("C:/GameServers/SAMP/config.ini");
+new PawnINIFile:config = PawnINI_Open("C:/GameServers/SAMP/config.ini");
     
     if(config != INVALID_INI_HANDLE)
     {
@@ -72,7 +72,7 @@ Example_RelativePath()
     print("=== Example 2: Relative Path ===");
     
     // "../configs" = parent folder + configs subfolder
-    new INI:settings = INI_Open("../configs/settings.ini");
+new PawnINIFile:settings = PawnINI_Open("../configs/settings.ini");
     
     if(settings != INVALID_INI_HANDLE)
     {
@@ -110,7 +110,7 @@ Example_PlayerDatabase()
 {
     print("=== Example 3: Player Database ===");
     
-    new INI:playerdb = INI_Open("C:/SAMP/users/players.ini");
+new PawnINIFile:playerdb = PawnINI_Open("C:/SAMP/users/players.ini");
     
     if(playerdb != INVALID_INI_HANDLE)
     {
@@ -142,7 +142,7 @@ Example_PlayerDatabase()
     }
 }
 
-CreateSamplePlayer(INI:handle, const name[])
+CreateSamplePlayer(PawnINIFile:handle, const name[])
 {
     INI_WriteString(handle, name, "password", "hash_123456");
     INI_WriteInt(handle, name, "score", 0);
@@ -157,7 +157,7 @@ CreateSamplePlayer(INI:handle, const name[])
     printf("Player '%s' created", name);
 }
 
-ShowPlayerData(INI:handle, const name[])
+ShowPlayerData(PawnINIFile:handle, const name[])
 {
     if(!INI_SectionExists(handle, name))
     {
@@ -181,7 +181,7 @@ ShowPlayerData(INI:handle, const name[])
 public OnPlayerConnect(playerid)
 {
     // Save connection log outside scriptfiles
-    new INI:log = INI_Open("C:/Logs/SAMP/connections.ini");
+new PawnINIFile:log = PawnINI_Open("C:/Logs/SAMP/connections.ini");
     
     if(log != INVALID_INI_HANDLE)
     {
@@ -209,7 +209,7 @@ public OnPlayerConnect(playerid)
 public OnPlayerDisconnect(playerid, reason)
 {
     // Save playtime stats
-    new INI:stats = INI_Open("C:/SAMP/stats/playtime.ini");
+new PawnINIFile:stats = PawnINI_Open("C:/SAMP/stats/playtime.ini");
     
     if(stats != INVALID_INI_HANDLE)
     {

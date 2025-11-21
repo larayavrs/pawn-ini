@@ -30,7 +30,7 @@ public:
      * @param params Pointer to the native call parameters (AMX convention).
      * @return AMX cell containing the file handle on success or a negative/error code.
      */
-    static cell AMX_NATIVE_CALL Native_INI_Open(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_Open(AMX *amx, cell *params);
 
     /**
      * @brief Close a previously opened INI handle.
@@ -39,7 +39,7 @@ public:
      * @param params Pointer to the native call parameters. Expected to contain the handle.
      * @return AMX cell indicating success (non-zero) or failure (zero / error code).
      */
-    static cell AMX_NATIVE_CALL Native_INI_Close(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_Close(AMX *amx, cell *params);
 
     /**
      * @brief Read a string value from a section/key.
@@ -51,7 +51,7 @@ public:
      * @param params AMX native parameters array.
      * @return Number of characters written to the buffer or an error code.
      */
-    static cell AMX_NATIVE_CALL Native_INI_ReadString(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_ReadString(AMX *amx, cell *params);
 
     /**
      * @brief Read an integer value from a section/key.
@@ -63,7 +63,7 @@ public:
      * @param params AMX native parameters array.
      * @return The integer value read or the default on error.
      */
-    static cell AMX_NATIVE_CALL Native_INI_ReadInt(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_ReadInt(AMX *amx, cell *params);
 
     /**
      * @brief Read a floating-point value from a section/key.
@@ -75,7 +75,7 @@ public:
      * @param params AMX native parameters array.
      * @return The float value read (as AMX cell) or the default on error.
      */
-    static cell AMX_NATIVE_CALL Native_INI_ReadFloat(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_ReadFloat(AMX *amx, cell *params);
 
     /**
      * @brief Write or update a string value under a section/key.
@@ -84,7 +84,7 @@ public:
      * @param params AMX native parameters array (expected: handle, section, key, value).
      * @return Non-zero on success, zero or negative on failure.
      */
-    static cell AMX_NATIVE_CALL Native_INI_WriteString(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_WriteString(AMX *amx, cell *params);
 
     /**
      * @brief Write or update an integer value under a section/key.
@@ -93,7 +93,7 @@ public:
      * @param params AMX native parameters array (expected: handle, section, key, integer).
      * @return Non-zero on success, zero or negative on failure.
      */
-    static cell AMX_NATIVE_CALL Native_INI_WriteInt(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_WriteInt(AMX *amx, cell *params);
 
     /**
      * @brief Write or update a float value under a section/key.
@@ -102,7 +102,7 @@ public:
      * @param params AMX native parameters array (expected: handle, section, key, float).
      * @return Non-zero on success, zero or negative on failure.
      */
-    static cell AMX_NATIVE_CALL Native_INI_WriteFloat(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_WriteFloat(AMX *amx, cell *params);
 
     /**
      * @brief Delete a whole section from the INI.
@@ -111,7 +111,7 @@ public:
      * @param params AMX native parameters (expected: handle, section).
      * @return Non-zero if the section was removed, zero otherwise.
      */
-    static cell AMX_NATIVE_CALL Native_INI_DeleteSection(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_DeleteSection(AMX *amx, cell *params);
 
     /**
      * @brief Delete a specific key from a section.
@@ -120,7 +120,7 @@ public:
      * @param params AMX native parameters (expected: handle, section, key).
      * @return Non-zero if the key was removed, zero otherwise.
      */
-    static cell AMX_NATIVE_CALL Native_INI_DeleteKey(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_DeleteKey(AMX *amx, cell *params);
 
     /**
      * @brief Check whether a section exists in the INI.
@@ -129,7 +129,7 @@ public:
      * @param params AMX native parameters (expected: handle, section).
      * @return Non-zero if the section exists, zero otherwise.
      */
-    static cell AMX_NATIVE_CALL Native_INI_SectionExists(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_SectionExists(AMX *amx, cell *params);
 
     /**
      * @brief Check whether a key exists within a section.
@@ -138,7 +138,7 @@ public:
      * @param params AMX native parameters (expected: handle, section, key).
      * @return Non-zero if the key exists, zero otherwise.
      */
-    static cell AMX_NATIVE_CALL Native_INI_KeyExists(AMX *amx, cell *params);
+    static cell AMX_NATIVE_CALL Native_PawnINI_KeyExists(AMX *amx, cell *params);
 
 private:
     /**
