@@ -19,6 +19,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
+# Architecture label for installation directories (x32/x64)
+if(NOT DEFINED PAWN_INI_ARCH OR PAWN_INI_ARCH STREQUAL "")
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set(PAWN_INI_ARCH "x64")
+    else()
+        set(PAWN_INI_ARCH "x32")
+    endif()
+endif()
+
 # Source files
 set(SOURCES
     source/main.cpp
@@ -71,13 +80,25 @@ set_target_properties(pawn-ini PROPERTIES
 
 # Installation
 install(TARGETS pawn-ini
-    RUNTIME DESTINATION ${CMAKE_SOURCE_DIR}/output
-    LIBRARY DESTINATION ${CMAKE_SOURCE_DIR}/output
+    RUNTIME DESTINATION ${CMAKE_SOURCE_DIR}/output/${PAWN_INI_ARCH}
+    LIBRARY DESTINATION ${CMAKE_SOURCE_DIR}/output/${PAWN_INI_ARCH}
 )
 
-install(FILES pawn-ini.inc
-    DESTINATION ${CMAKE_SOURCE_DIR}/output
-)
+# Locate pawn-ini.inc for installation (prefer repo root, fallback to dist package)
+set(PAWN_INI_INC "${CMAKE_SOURCE_DIR}/pawn-ini.inc")
+if(NOT EXISTS "${PAWN_INI_INC}")
+    if(EXISTS "${CMAKE_SOURCE_DIR}/dist/pawn-ini-v1.0.0/pawn-ini.inc")
+        set(PAWN_INI_INC "${CMAKE_SOURCE_DIR}/dist/pawn-ini-v1.0.0/pawn-ini.inc")
+    else()
+        set(PAWN_INI_INC "")
+    endif()
+endif()
+
+if(PAWN_INI_INC)
+    install(FILES ${PAWN_INI_INC}
+        DESTINATION ${CMAKE_SOURCE_DIR}/output
+    )
+endif()
 
 # Print build information
 message(STATUS "==============================================")
