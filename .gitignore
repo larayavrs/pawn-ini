@@ -1,6 +1,7 @@
 # Build directories
 build/
 dist
+.output
 
 # CMake
 CMakeCache.txt
