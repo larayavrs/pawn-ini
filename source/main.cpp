@@ -15,6 +15,8 @@
 
 logprintf_t logprintf;
 
+extern void *pAMXFunctions;
+
 const AMX_NATIVE_INFO NATIVES[] = {
     {"PawnINI_Open", Natives::Native_PawnINI_Open},
     {"PawnINI_Close", Natives::Native_PawnINI_Close},
@@ -37,6 +39,7 @@ PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()
 
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void **ppData)
 {
+    pAMXFunctions = ppData[PLUGIN_DATA_AMX_EXPORTS];
     logprintf = (logprintf_t)ppData[PLUGIN_DATA_LOGPRINTF];
     logprintf("[pawn-ini | Info] Plugin has been loaded successfully: %s", VERSION_SHORT);
     return true;
