@@ -83,16 +83,6 @@ install(TARGETS pawn-ini
     LIBRARY DESTINATION ${PAWN_INI_ARCH}
 )
 
-# Find pawn-ini.inc
-set(PAWN_INI_INC "${CMAKE_SOURCE_DIR}/pawn-ini.inc")
-if(NOT EXISTS "${PAWN_INI_INC}")
-    if(EXISTS "${CMAKE_SOURCE_DIR}/dist/pawn-ini-v1.0.0/pawn-ini.inc")
-        set(PAWN_INI_INC "${CMAKE_SOURCE_DIR}/dist/pawn-ini-v1.0.0/pawn-ini.inc")
-    else()
-        set(PAWN_INI_INC "")
-    endif()
-endif()
-
 # Install .inc
 if(PAWN_INI_INC)
     install(FILES ${PAWN_INI_INC}
