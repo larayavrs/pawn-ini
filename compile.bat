@@ -22,13 +22,13 @@ if %errorlevel% neq 0 goto :error
 
 echo.
 echo ========================================
-echo      Compilacion completada
+echo      Compilation finished
 echo ========================================
 pause
 exit /b 0
 
 :error
-echo ERROR: Fallo una de las compilaciones.
+echo ERROR: Failed to compile pawn-ini
 pause
 exit /b 1
 
@@ -49,21 +49,21 @@ if not exist "%OUT_DIR%" mkdir "%OUT_DIR%"
 
 pushd "%BUILD_DIR%"
 
-echo * Configurando CMake...
+echo * Configuring CMake...
 cmake "%SCRIPT_DIR%" -G "Visual Studio 17 2022" -A %PLATFORM% -DPAWN_INI_ARCH=%ARCH%
 if %errorlevel% neq 0 (
     popd
     exit /b 1
 )
 
-echo * Compilando...
+echo * Compiling...
 cmake --build . --config Release
 if %errorlevel% neq 0 (
     popd
     exit /b 1
 )
 
-echo * Instalando...
+echo * Installing...
 cmake --install . --config Release --prefix "%SCRIPT_DIR%\.output\%ARCH%"
 if %errorlevel% neq 0 (
     popd
